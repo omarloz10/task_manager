@@ -18,10 +18,9 @@ Task Manager es una aplicación web para la gestión de tareas que integra **Bac
 
 **Frontend (Angular):**
 
-- Angular 16
+- Angular 21
 - TypeScript, HTML, CSS
-- Tailwind CSS (si aplica)
-- HttpClient para consumir la API
+- Tailwind CSS
 
 ---
 
@@ -31,7 +30,6 @@ Task Manager es una aplicación web para la gestión de tareas que integra **Bac
 - Autenticación y autorización con JWT
 - CRUD de tareas (crear, listar, actualizar, eliminar)
 - Asociación de tareas con usuarios
-- Control de fechas de creación y actualización automática
 - Frontend interactivo en Angular
 - Documentación de API disponible en Swagger
 
@@ -53,4 +51,14 @@ cd task_manager/task-manager
 
 ```bash
 ./gradlew bootRun
-``` 
+```
+
+
+### Frontend (Angular 21)
+
+1. Abrir la carpeta del frontend y ejecutar:
+
+```bash
+cd task_manager/frontend
+ng serve
+```
