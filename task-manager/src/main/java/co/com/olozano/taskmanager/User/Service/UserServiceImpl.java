@@ -1,5 +1,6 @@
 package co.com.olozano.taskmanager.User.Service;
 
+import co.com.olozano.taskmanager.Exception.Exceptions.NotFoundException;
 import co.com.olozano.taskmanager.User.DTO.UserDto;
 import co.com.olozano.taskmanager.User.Entity.User;
 import co.com.olozano.taskmanager.User.Mapper.UserMapper;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(UUID id) {
         return userRepository.findById(id)
                 .map(userMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("User not found!"));
+                .orElseThrow(() -> new NotFoundException("User not found!"));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            throw new RuntimeException("User not found!");
+            throw new NotFoundException("User not found!");
         }
 
         return user;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public UserDto update(UUID id, UserDto userDto) {
 
         User userDB = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found!"));
+                .orElseThrow(() -> new NotFoundException("User not found!"));
 
         return userMapper.toDto(userRepository.save(userDB.toBuilder()
                 .name(userDto.name())

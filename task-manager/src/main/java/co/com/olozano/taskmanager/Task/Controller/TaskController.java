@@ -2,6 +2,7 @@ package co.com.olozano.taskmanager.Task.Controller;
 
 import co.com.olozano.taskmanager.Task.DTO.TaskDTO;
 import co.com.olozano.taskmanager.Task.Service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class TaskController {
     }
 
     @PostMapping(path = {"", "/"})
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
+    public ResponseEntity<TaskDTO> createTask(@RequestBody @Valid TaskDTO taskDTO) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(taskService.save(taskDTO));
     }
 
     @PutMapping(path = "/{taskId}")
     public ResponseEntity<TaskDTO> updateTask(@PathVariable(name = "taskId") UUID id,
-                                              @RequestBody TaskDTO taskDTO) {
+                                              @RequestBody @Valid TaskDTO taskDTO) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(taskService.update(id, taskDTO));
     }

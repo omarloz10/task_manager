@@ -2,6 +2,7 @@ package co.com.olozano.taskmanager.Auth.Service;
 
 import co.com.olozano.taskmanager.Auth.DTO.AuthDto;
 import co.com.olozano.taskmanager.Auth.DTO.AuthResponseDTO;
+import co.com.olozano.taskmanager.Exception.Exceptions.BadRequestException;
 import co.com.olozano.taskmanager.User.DTO.UserDto;
 import co.com.olozano.taskmanager.User.Entity.User;
 import co.com.olozano.taskmanager.User.Service.UserService;
@@ -34,11 +35,11 @@ public class AuthServiceImpl implements AuthService {
         User user = userService.findByEmail(authDto.email());
 
         if (user == null) {
-            throw new RuntimeException("This email is not registered");
+            throw new BadRequestException("This email is not registered");
         }
 
         if (!passwordEncoder.matches(authDto.password(), user.getPassword())) {
-            throw new RuntimeException("Incorrect Password");
+            throw new BadRequestException("Incorrect Password");
         }
 
         JwsHeader jwsHeader = JwsHeader.with(MacAlgorithm.HS256).build();
@@ -102,7 +103,6 @@ public class AuthServiceImpl implements AuthService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth instanceof JwtAuthenticationToken jwtAuth) {
             Jwt jwt = jwtAuth.getToken();
-            System.out.println(UUID.fromString(jwt.getClaimAsString("id")));
             return UUID.fromString(jwt.getClaimAsString("id"));
         }
         throw new RuntimeException("No authenticated user found");

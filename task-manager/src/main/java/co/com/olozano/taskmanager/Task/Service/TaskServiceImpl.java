@@ -1,6 +1,7 @@
 package co.com.olozano.taskmanager.Task.Service;
 
 import co.com.olozano.taskmanager.Auth.Service.AuthService;
+import co.com.olozano.taskmanager.Exception.Exceptions.NotFoundException;
 import co.com.olozano.taskmanager.Task.DTO.TaskDTO;
 import co.com.olozano.taskmanager.Task.Entity.Task;
 import co.com.olozano.taskmanager.Task.Mapper.TaskMapper;
@@ -8,7 +9,6 @@ import co.com.olozano.taskmanager.Task.Repository.TaskRepository;
 import co.com.olozano.taskmanager.User.Entity.User;
 import co.com.olozano.taskmanager.User.Mapper.UserMapper;
 import co.com.olozano.taskmanager.User.Repository.UserRepository;
-import co.com.olozano.taskmanager.User.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDTO findById(UUID id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new NotFoundException("Task not found"));
 
         return taskMapper.toDTO(task);
     }
@@ -42,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteById(UUID id) {
         taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new NotFoundException("Task not found"));
 
         taskRepository.deleteById(id);
     }
@@ -54,7 +54,7 @@ public class TaskServiceImpl implements TaskService {
         UUID userId = authService.getCurrentUserId();
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
         return taskMapper.toDTO(taskRepository.save(task.toBuilder()
                 .user(user)
@@ -65,7 +65,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskDTO update(UUID id, TaskDTO taskDTO) {
 
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new NotFoundException("Task not found"));
 
         return taskMapper.toDTO(taskRepository.save(task.toBuilder()
                 .title(taskDTO.title())
@@ -77,7 +77,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDTO changeStatus(UUID taskId) {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new NotFoundException("Task not found"));
 
         return taskMapper.toDTO(taskRepository.save(task.toBuilder()
                 .isCompleted(!task.getIsCompleted())

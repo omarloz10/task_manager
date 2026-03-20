@@ -2,6 +2,7 @@ package co.com.olozano.taskmanager.User.Controller;
 
 import co.com.olozano.taskmanager.User.DTO.UserDto;
 import co.com.olozano.taskmanager.User.Service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,13 @@ public class UserController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<UserDto> register(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> register(@RequestBody @Valid UserDto userDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.save(userDto));
     }
 
     @PutMapping(path = "/{userId}")
-    public ResponseEntity<UserDto> update(@PathVariable(name = "userId") UUID id, @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> update(@PathVariable(name = "userId") UUID id, @RequestBody @Valid UserDto userDto) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userService.update(id, userDto));
     }
