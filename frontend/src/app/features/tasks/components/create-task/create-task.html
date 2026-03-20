@@ -1,0 +1,27 @@
+<form [formGroup]="taskForm">
+    <div
+        class="bg-white sm:w-[90%] md:w-[60%] lg:w-[30%] m-auto h-70 rounded-2xl shadow flex flex-col p-4 items-center">
+        <p class="text-2xl font-semibold">Crear una nueva tarea</p>
+        <div class=" flex flex-col mt-2 w-6/12">
+
+            <div class="flex flex-col mb-4">
+                <label for="title" class="text-sm font-semibold">Titulo</label>
+                <input formControlName="title" type="text" id="title" autocomplete="off"
+                    class="border h-8 ps-4 rounded-lg border-gray-300 focus:outline-gray-300" formControlName="title">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="description" class="text-sm font-semibold">Descripción</label>
+                <textarea formControlName="description" type="text" autocomplete="off" style="resize: none;"
+                    maxlength="50" class="border h-12 ps-4 rounded-lg border-gray-300  focus:outline-gray-300"
+                    id="description" formControlName="description"></textarea>
+            </div>
+
+            <button
+                class="border h-10 mt-5 bg-indigo-500 cursor-pointer hover:bg-indigo-400 text-white font-bold rounded-lg disabled:opacity-50 disabled:bg-indigo-500 disabled:cursor-not-allowed"
+                (click)="onSubmit()">
+                {{buttonText()}}
+            </button>
+        </div>
+    </div>
+</form>

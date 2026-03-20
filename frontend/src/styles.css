@@ -1,3 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+body {
+    @apply min-h-screen w-full m-0 p-0 bg-linear-to-br from-blue-50 to-indigo-100 bg-no-repeat;
+}

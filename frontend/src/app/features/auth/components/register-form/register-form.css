@@ -1,0 +1,45 @@
+@reference "tailwindcss";
+
+.register-card {
+    @apply bg-white sm:w-96 md:w-110 h-150 flex flex-col rounded-2xl border-2 border-gray-300 p-8
+}
+
+.card-header {
+    @apply flex flex-col justify-center items-center mb-6;
+}
+
+.card-header_icon {
+    @apply bg-indigo-600 text-white rounded-full p-1;
+}
+
+.card-header_title {
+    @apply text-2xl font-bold
+}
+
+.card-header_subtitle {
+    @apply text-gray-600 text-sm mt-1;
+}
+
+.card-input {
+    @apply w-full flex flex-col mb-4;
+}
+
+.card-input_label {
+    @apply text-sm font-bold;
+}
+
+.card-input_input {
+    @apply border-2 border-gray-200 rounded-lg h-9 ms-1 w-[95%] bg-gray-200 ps-3 text-black focus:border-gray-300 focus:outline-none
+}
+
+.card-footer {
+    @apply flex flex-col text-center
+}
+
+.card-footer_button {
+    @apply border h-11 bg-indigo-600 rounded-2xl text-white font-semibold cursor-pointer hover:bg-indigo-500
+}
+
+.card-footer_link {
+    @apply text-indigo-600 cursor-pointer hover:underline;
+}

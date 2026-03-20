@@ -1,0 +1,45 @@
+<div class="login-card">
+    <form [formGroup]="loginForm" (submit)="onSubmit()">
+        <div class="card-header">
+            <lucide-angular [img]="CircleCheck" size="70" class="card-header_icon" />
+            <h1 class="card-header_title">Task Manager</h1>
+            <sub class="card-header_subtitle">Ingresa tus credenciales para continuar</sub>
+        </div>
+
+        <div class="card-body">
+
+            <div class="card-input">
+                <label for="email" class="card-input_label">Email</label>
+                <input type="email" id="email"
+                    class="{{loginForm.get('email')?.touched && loginForm.get('email')?.invalid ? 'border-red-400!': '' }} card-input_input"
+                    placeholder="tuemail@email.com" autocomplete="off" formControlName="email">
+                <sub class="mt-2 font-semibold text-red-500">
+                    @if(loginForm.get("email")?.touched && loginForm.get("email")?.hasError){
+                    <span *ngIf="loginForm.get('email')?.errors?.['required']">El email es obligatorio</span>
+                    <span *ngIf="loginForm.get('email')?.errors?.['email']">El email no es válido</span>
+                    }
+                </sub>
+            </div>
+
+            <div class="card-input">
+                <label for="password" class="card-input_label">Contraseña</label>
+                <input type="password" id="password" class="{{loginForm.get('password')?.touched && loginForm.get('password')?.invalid ? 'border-red-400!': '' }} card-input_input" placeholder="**********"
+                    formControlName="password">
+
+                <sub class="mt-2 font-semibold text-red-500">
+                    @if(loginForm.get("password")?.touched && loginForm.get("password")?.hasError){
+                    <span *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
+                    }
+                </sub>
+            </div>
+        </div>
+
+        <div class=" card-footer">
+            <button type="submit" class="card-footer_button" [disabled]="loginForm.invalid">Iniciar
+                Sesión</button>
+
+            <span class="mt-3">¿No tienes cuenta? <a routerLink="/register"
+                    class="card-footer_link">Regístrate</a></span>
+        </div>
+    </form>
+</div>
