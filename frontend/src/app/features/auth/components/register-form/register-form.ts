@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule, UserPlus } from 'lucide-angular';
 import { AuthService } from '../../services/auth.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class RegisterForm {
   private readonly authService: AuthService = inject(AuthService);
   private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly router: Router = inject(Router);
   registerForm!: FormGroup
 
   readonly UserPlus = UserPlus
@@ -36,7 +37,12 @@ export class RegisterForm {
 
     const { confirmPassword, ...userData } = formData
     this.authService.register(userData)
-      .subscribe()
+      .subscribe({
+        next: () => {
+          alert("Registro Exitoso")
+          this.router.navigate([''])
+        }
+      })
   }
 
 }
